@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mr Mudyanadzo · Personal Portfolio</title>
+    <!-- Bootstrap 5 + Icons + Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* custom variables + light blue/yellow/white theme */
+        :root {
+            --bg-light: #f0f9ff;
+            --card-light: #ffffff;
+            --text-light: #1e2a3e;
+            --accent: #f5b042;
+            --accent-dark: #e09d2c;
+            --border-light: #dceaf2;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-light);
+            transition: background 0.3s, color 0.2s;
+        }
+        /* Dark mode overrides (Bootstrap + custom) */
+        body.dark-mode {
+            background: #0a1927;
+            color: #eef4ff;
+        }
+        body.dark-mode .card, 
+        body.dark-mode .bg-white,
+        body.dark-mode .navbar,
+        body.dark-mode .list-group-item,
+        body.dark-mode .form-control,
+        body.dark-mode .form-select {
+            background-color: #1a2a36 !important;
+            color: #eef4ff !important;
+            border-color: #2d3e4e !important;
+        }
+        body.dark-mode .navbar {
+            background-color: #11212e !important;
+        }
+        body.dark-mode .btn-outline-secondary {
+            color: #ffc857;
+            border-color: #ffc857;
+        }
+        body.dark-mode .text-muted {
+            color: #b9c7d9 !important;
+        }
+        body.dark-mode .border-bottom {
+            border-color: #2d3e4e !important;
+        }
+        /* FIX: headings visibility in dark mode */
+        body.dark-mode h2,
+        body.dark-mode .section-heading {
+            color: #ffefb9 !important;  /* bright light yellow */
+        }
+        body.dark-mode h2 i,
+        body.dark-mode .section-heading i {
+            color: var(--accent) !important;
+        }
+        body.dark-mode .card h5 {
+            color: #f5f9ff;
+        }
+        /* accent color */
+        .bg-accent { background-color: var(--accent); }
+        .text-accent { color: var(--accent); }
+        .btn-accent {
+            background-color: var(--accent);
+            border: none;
+            color: #1e2a3e;
+            font-weight: 600;
+        }
+        .btn-accent:hover {
+            background-color: var(--accent-dark);
+            color: #1e2a3e;
+        }
+        .stat-card {
+            border-radius: 28px;
+            transition: transform 0.2s;
+            border: 1px solid var(--border-light);
+        }
+        body.dark-mode .stat-card {
+            border-color: #2d3e4e;
+            background-color: #1a2a36 !important;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-number {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border: 5px solid var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        .skill-tag {
+            display: inline-block;
+            background: rgba(22, 29, 54, 0.15);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin: 0.2rem;
+        }
+        body.dark-mode .skill-tag {
+            background: rgba(255,200,87,0.2);
+            color: #ffecb3;
+        }
+        .social-icon {
+            font-size: 2rem;
+            margin: 0 0.6rem;
+            transition: 0.2s;
+            color: var(--text-light);
+        }
+        body.dark-mode .social-icon {
+            color: #cbd5e6;
+        }
+        .social-icon:hover {
+            color: var(--accent) !important;
+            transform: scale(1.1);
+        }
+        footer {
+            background: #eef2f7;
+        }
+        body.dark-mode footer {
+            background: #0e1a22;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent), #e6b422);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-link {
+            font-weight: 500;
+        }
+        .theme-switch-btn {
+            cursor: pointer;
+            background: var(--accent);
+            border: none;
+            border-radius: 40px;
+            padding: 0.3rem 1rem;
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .profile-img { width: 140px; height: 140px; }
+            .stat-number { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Bootstrap Navbar with hamburger -->
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm" style="background: rgba(255,255,255,0.94); backdrop-filter: blur(8px);">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-shield-alt text-accent"></i> Mr Mudyanadzo’s portfolio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center gap-2">
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                <li class="nav-item"><a class="nav-link" href="#certifications">Certs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item">
+                    <button class="theme-switch-btn" id="darkModeToggle"><i class="fas fa-moon"></i> <span id="themeText">Dark</span></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container py-4">
+            <div class="row align-items-center g-5">
+                <div class="col-md-4 text-center">
+                    <div class="position-relative d-inline-block">
+                        <img id="profileImg" class="profile-img" src="https://ui-avatars.com/api/?background=F5B042&color=fff&rounded=true&size=180&bold=true&name=AM" alt="Profile">
+                    </div>
+                    <div class="mt-3">
+                        <input type="file" id="photoUploadInput" accept="image/*" style="display: none;">
+                        <button class="btn btn-accent btn-sm" id="uploadPhotoBtn"><i class="fas fa-camera"></i> Change Picture</button>
+                        <button class="btn btn-outline-secondary btn-sm ms-2" id="resetPhotoBtn"><i class="fas fa-undo-alt"></i> Default</button>
+
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h1>Aleck <span class="text-accent">Mudyanadzo</span></h1>
+                    <p class="lead">🔐 Cybersecurity Enthusiast | CS Student at Midlands State University</p>
+                    <p>Passionate about ethical hacking, AI-driven security, and building resilient digital ecosystems. Certified in Kali Linux, AI Cybersecurity, and SQL injection defense. I combine offensive security knowledge with modern web development to craft secure, user-centric applications.</p>
+                    
+                    <!-- 5 animated counters row -->
+                    <div class="row mt-4 g-3 text-center" id="counterRow">
+                        <div class="col-6 col-md"><div class="stat-card p-3 bg-white rounded-4 shadow-sm"><div class="stat-number"><span class="counter" data-target="3">3</span></div><div class="small fw-bold">Certifications</div></div></div>
+                        <div class="col-6 col-md"><div class="stat-card p-3 bg-white rounded-4 shadow-sm"><div class="stat-number"><span class="counter" data-target="8">8</span></div><div class="small fw-bold">Tools Mastered</div></div></div>
+                        <div class="col-6 col-md"><div class="stat-card p-3 bg-white rounded-4 shadow-sm"><div class="stat-number"><span class="counter" data-target="15">15</span></div><div class="small fw-bold">Labs Explored</div></div></div>
+                        <div class="col-6 col-md"><div class="stat-card p-3 bg-white rounded-4 shadow-sm"><div class="stat-number"><span class="counter" data-target="6">6</span></div><div class="small fw-bold">Code Repos</div></div></div>
+                        <div class="col-6 col-md"><div class="stat-card p-3 bg-white rounded-4 shadow-sm"><div class="stat-number"><span class="counter" data-target="100+">100+</span></div><div class="small fw-bold">Study Hours+</div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5" style="background: var(--bg-dark);"></section>
+        <div class="container">
+            <h2 class="mb-4 section-heading"><i class="fas fa-code text-accent"></i> Technical Arsenal</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3"><div class="card h-100 border-0 shadow-sm rounded-4"><div class="card-body"><h5><i class="fas fa-terminal text-accent"></i> Languages</h5><div><span class="skill-tag">Python</span> <span class="skill-tag">JavaScript</span> <span class="skill-tag">SQL</span> <span class="skill-tag">Bash</span></div></div></div></div>
+                <div class="col-md-6 col-lg-3"><div class="card h-100 border-0 shadow-sm rounded-4"><div class="card-body"><h5><i class="fas fa-layer-group text-accent"></i> Frameworks</h5><div><span class="skill-tag">React</span> <span class="skill-tag">Node.js</span> <span class="skill-tag">Express</span> <span class="skill-tag">Tailwind</span></div></div></div></div>
+                <div class="col-md-6 col-lg-3"><div class="card h-100 border-0 shadow-sm rounded-4"><div class="card-body"><h5><i class="fas fa-tools text-accent"></i> Tools / Platforms</h5><div><span class="skill-tag">Kali Linux</span> <span class="skill-tag">Wireshark</span> <span class="skill-tag">Burp Suite</span> <span class="skill-tag">Docker</span> <span class="skill-tag">Git</span></div></div></div></div>
+                <div class="col-md-6 col-lg-3"><div class="card h-100 border-0 shadow-sm rounded-4"><div class="card-body"><h5><i class="fas fa-database text-accent"></i> Databases</h5><div><span class="skill-tag">MySQL</span> <span class="skill-tag">MongoDB</span> <span class="skill-tag">PostgreSQL</span></div></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section (3 official certs) -->
+    <section id="certifications" class="py-5">
+        <div class="container">
+            <h2 class="mb-4 section-heading"><i class="fas fa-certificate text-accent"></i> Certifications Earned</h2>
+            <div class="row g-4">
+                <div class="col-md-4"><div class="card h-100 border-0 rounded-4 shadow-sm"><div class="card-body"><h5><i class="fab fa-linux"></i> Kali Linux for ethical hacking and security analysis  <span class="badge bg-warning text-dark ms-2">Alison</span></h5><p>Ethical hacking, penetration testing, vulnerability assessment with Kali tools.</p><small class="text-muted">Issued: 2026</small></div></div></div>
+                <div class="col-md-4"><div class="card h-100 border-0 rounded-4 shadow-sm"><div class="card-body"><h5><i class="fas fa-microchip"></i> AI Powered Cybersecurity fundermentals<span class="badge bg-warning text-dark ms-2">Alison</span></h5><p>Leveraging AI for threat detection, automated response, and defensive strategies.</p><small class="text-muted">Issued: 2026</small></div></div></div>
+                <div class="col-md-4"><div class="card h-100 border-0 rounded-4 shadow-sm"><div class="card-body"><h5><i class="fas fa-database"></i> SQL Injections <span class="badge bg-warning text-dark ms-2">Code Red</span></h5><p>In-depth SQLi detection, exploitation & secure coding to prevent database attacks.</p><small class="text-muted">Issued: 2026</small></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section with form, social icons, phone (fully responsive) -->
+    <section id="contact" class="py-5" style="background: var(--bg-dark);">
+        <div class="container">
+            <h2 class="mb-4 section-heading"><i class="fas fa-paper-plane text-accent"></i> Send a Message</h2>
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <div class="card border-0 rounded-4 shadow-sm">
+                        <div class="card-body p-4">
+                            <form id="contactForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="contactName" placeholder="Aleck Mudyanadzo">
+                                    <div class="invalid-feedback" id="nameError"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email address *</label>
+                                    <input type="email" class="form-control" id="contactEmail" placeholder="hello@example.com">
+                                    <div class="invalid-feedback" id="emailError"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Message *</label>
+                                    <textarea class="form-control" rows="4" id="contactMessage" placeholder="Your message..."></textarea>
+                                    <div class="invalid-feedback" id="msgError"></div>
+                                </div>
+                                <button type="submit" class="btn btn-accent px-4"><i class="fas fa-comment-dots"></i> Send Message</button>
+                                <div id="formFeedback" class="mt-3"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card border-0 rounded-4 shadow-sm h-100">
+                        <div class="card-body p-4 text-center">
+                            <h4><i class="fas fa-hands-helping text-accent"></i> Connect with me</h4>
+                            <div class="my-3">
+                                <a href="https://facebook.com/mkwashamsaladhi" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+                                <a href="https://instagram.com/mkwashamsaladhi" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="https://wa.me/263715505418" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                                <a href="https://github.com/aleckalkahmudyanadzo-cyber" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+                                <a href="https://www.linkedin.com/in/AleckMudyanadzo" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                            <hr>
+                            <div class="text-start">
+                                <p><i class="fas fa-phone-alt text-accent me-2"></i> +263 71 550 5418 (WhatsApp)</p>
+                                <p><i class="fas fa-envelope text-accent me-2"></i> aleckalkahmudyanadzo@gmail.com</p>
+                                <p><i class="fas fa-map-marker-alt text-accent me-2"></i> Midlands State University, Zimbabwe, Gweru</p>
+                            </div>
+                            <p class="small text-muted mt-3">Feel free to reach out let's build secure systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="text-center py-4 mt-4">
+    <p class="mb-0">© 2026 Mr Mudyanadzo My Portfolio  <i class="fas fa-shield-alt"></i></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // ------------------------------
+    // 1. PERMANENT PROFILE PICTURE (localStorage)
+    // ------------------------------
+    const profileImg = document.getElementById('profileImg');
+    const uploadInput = document.getElementById('photoUploadInput');
+    const uploadBtn = document.getElementById('uploadPhotoBtn');
+    const resetBtn = document.getElementById('resetPhotoBtn');
+    const DEFAULT_AVATAR = "https://ui-avatars.com/api/?background=F5B042&color=fff&rounded=true&size=180&bold=true&name=AM";
+
+    // load saved picture if exists
+    const savedPicture = localStorage.getItem('permanentProfilePic');
+    if (savedPicture && savedPicture !== 'undefined') {
+        profileImg.src = savedPicture;
+    } else {
+        profileImg.src = DEFAULT_AVATAR;
+    }
+
+    uploadBtn.addEventListener('click', () => uploadInput.click());
+    uploadInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const imgData = ev.target.result;
+                profileImg.src = imgData;
+                localStorage.setItem('permanentProfilePic', imgData);
+                // optional small feedback
+                const toastMsg = document.createElement('div');
+                toastMsg.className = 'alert alert-success small position-fixed bottom-0 end-0 m-3';
+                toastMsg.innerHTML = '✅ Profile picture saved permanently!';
+                document.body.appendChild(toastMsg);
+                setTimeout(() => toastMsg.remove(), 2000);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please select a valid image (PNG, JPG)');
+        }
+    });
+
+    resetBtn.addEventListener('click', () => {
+        profileImg.src = DEFAULT_AVATAR;
+        localStorage.removeItem('permanentProfilePic');
+        alert('Default profile picture restored.');
+    });
+
+    // ------------------------------
+    // 2. DARK MODE with system preference + localStorage
+    // ------------------------------
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const themeSpan = document.getElementById('themeText');
+    const setDarkMode = (isDark) => {
+        if (isDark) {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('portfolioDarkMode', 'true');
+            themeSpan.innerHTML = 'Light';
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
+        } else {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('portfolioDarkMode', 'false');
+            themeSpan.innerHTML = 'Dark';
+            darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark';
+        }
+    };
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedDark = localStorage.getItem('portfolioDarkMode');
+    if (savedDark !== null) {
+        setDarkMode(savedDark === 'true');
+    } else {
+        setDarkMode(prefersDark);
+    }
+    darkModeToggle.addEventListener('click', () => {
+        const currentlyDark = document.body.classList.contains('dark-mode');
+        setDarkMode(!currentlyDark);
+    });
+
+    // ------------------------------
+    // 3. ANIMATED COUNTERS (Intersection Observer)
+    // ------------------------------
+    const counters = document.querySelectorAll('.counter');
+    let animationTriggered = false;
+    const startCounters = () => {
+        if (animationTriggered) return;
+        animationTriggered = true;
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            let current = 0;
+            const step = Math.ceil(target / 40);
+            const update = () => {
+                current += step;
+                if (current >= target) {
+                    counter.innerText = target;
+                    return;
+                }
+                counter.innerText = current;
+                setTimeout(update, 18);
+            };
+            update();
+        });
+    };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.4 });
+    const counterRow = document.getElementById('counterRow');
+    if (counterRow) observer.observe(counterRow);
+    if (counterRow && counterRow.getBoundingClientRect().top < window.innerHeight) startCounters();
+
+    // ------------------------------
+    // 4. FORM VALIDATION (JavaScript required)
+    // ------------------------------
+    const form = document.getElementById('contactForm');
+    const nameInput = document.getElementById('contactName');
+    const emailInput = document.getElementById('contactEmail');
+    const msgInput = document.getElementById('contactMessage');
+    const nameErr = document.getElementById('nameError');
+    const emailErr = document.getElementById('emailError');
+    const msgErr = document.getElementById('msgError');
+    const feedbackDiv = document.getElementById('formFeedback');
+
+    const validateEmail = (email) => /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email);
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let isValid = true;
+        nameErr.style.display = 'none';
+        emailErr.style.display = 'none';
+        msgErr.style.display = 'none';
+        nameErr.innerText = '';
+        emailErr.innerText = '';
+        msgErr.innerText = '';
+        feedbackDiv.innerHTML = '';
+
+        const nameVal = nameInput.value.trim();
+        if (nameVal === '' || nameVal.length < 2) {
+            nameErr.innerText = 'Please enter your full name.';
+            nameErr.style.display = 'block';
+            isValid = false;
+        }
+        const emailVal = emailInput.value.trim();
+        if (emailVal === '') {
+            emailErr.innerText = 'Email address is required.';
+            emailErr.style.display = 'block';
+            isValid = false;
+        } else if (!validateEmail(emailVal)) {
+            emailErr.innerText = 'Enter a valid email (e.g., name@domain.com).';
+            emailErr.style.display = 'block';
+            isValid = false;
+        }
+        const msgVal = msgInput.value.trim();
+        if (msgVal === '') {
+            msgErr.innerText = 'Message cannot be empty.';
+            msgErr.style.display = 'block';
+            isValid = false;
+        } else if (msgVal.length < 5) {
+            msgErr.innerText = 'Message must be at least 5 characters.';
+            msgErr.style.display = 'block';
+            isValid = false;
+        }
+
+        if (isValid) {
+            feedbackDiv.innerHTML = '<div class="alert alert-success"><i class="fas fa-check-circle"></i> Message sent! (demo mode — your portfolio is ready)</div>';
+            form.reset();
+            setTimeout(() => feedbackDiv.innerHTML = '', 4000);
+        } else {
+            feedbackDiv.innerHTML = '<div class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i> Please fix the errors above.</div>';
+        }
+    });
+</script>
+</body>
+</html>
